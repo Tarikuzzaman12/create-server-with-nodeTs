@@ -1,24 +1,7 @@
 import http,{IncomingMessage,Server,ServerResponse} from "http"
 import config from "./config"
-// import addRoutes from"./helpers/RouteHandler"
-// import routes from"./helpers/RouteHandler"
-// import RouteHandler from"./helpers/RouteHandler"
-import addRoutes, { routes, RouteHandler } from "./helpers/RouteHandler"
-
-
-
-addRoutes("GET","/" ,(req,res) => {
-     res.writeHead(200,{"content-type": "application/json"})
-     res.end(
-        JSON.stringify({
-            message: "Hellow from node js with typescript",
-            path:req.url
-        }
-
-        )
-    )
-
-})
+import { routes, RouteHandler } from "./helpers/RouteHandler"
+import "./routes"
 
 const server: Server = http.createServer((req:IncomingMessage ,res: ServerResponse) =>
     {
@@ -43,35 +26,6 @@ handler(req,res)
     
     }))
 }
-
-// root route 
-// if(req.url == "/" && req.method == "GET" ){
-//     res.writeHead(200,{"content-type": "application/json"})
-//      res.end(
-//         JSON.stringify({
-//             message: "Hellow from node js with typescript",
-//             path:req.url
-//         }
-
-//         )
-
-//      )
-//     }
-
-    // health route 
-
-//      if(req.url =="/api" && req.method == "GET"){
-//          res.writeHead(200,{"content-type": "application/json"})
-//      res.end(
-//         JSON.stringify({
-//             message: "health status check",
-//             path:req.url
-//         }
-
-//         )
-//     )
-
-// }
 
 // if(req.url =="/api/users" && req.method == "POST"){
     // const user={
