@@ -5,14 +5,10 @@ import "./routes"
 
 const server: Server = http.createServer((req:IncomingMessage ,res: ServerResponse) =>
     {
-console.log("server is running")
-
 const method =req.method?.toUpperCase() || ""
 const path = req.url || ""
 const methodMap = routes.get(method)
 const handler:RouteHandler | undefined = methodMap?.get(path)
-
-
 
 if(handler){
 handler(req,res)
@@ -21,46 +17,7 @@ handler(req,res)
     res.end(JSON.stringify({
         sucess:false,
         message:"Route not found",
-        path:path
-
-    
-    }))
-}
-
-// if(req.url =="/api/users" && req.method == "POST"){
-    // const user={
-    //     id:1,
-    //     name:"zaman"
-    // }
-    //        res.writeHead(200,{"content-type": "application/json"})
-    //  res.end(
-    //     JSON.stringify(user)
-    // )
-
-    // let body=""
-
-    // listen 
-//     req.on("data", chunk =>{
-//         body += chunk.toString()
-//     })
-
-//      req.on("end", () =>{
-//      try{
-//  const parseBody=JSON.parse(body)
-//     console.log(parseBody)
-//     console.log("start server")
-//      res.end(JSON.stringify(parseBody))
-//      }catch(err:any){
-//       console.log(err?.message)
-//      }
-//     })
-
-   
-// }
-
-     
-}
-)
+        path:path}))}})
 
 server.listen(config.port ,() =>{
     console.log(`server is running on port  ${config.port}`)
