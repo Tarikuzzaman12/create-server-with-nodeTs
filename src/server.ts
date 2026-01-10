@@ -2,6 +2,8 @@ import http,{IncomingMessage,Server,ServerResponse} from "http"
 import config from "./config"
 import { routes, RouteHandler } from "./helpers/RouteHandler"
 import "./routes"
+import findDynamicRoutes from "./helpers/dynamicRoutes"
+
 
 const server: Server = http.createServer((req:IncomingMessage ,res: ServerResponse) =>
     {
@@ -12,7 +14,13 @@ const handler:RouteHandler | undefined = methodMap?.get(path)
 
 if(handler){
 handler(req,res)
-}else{
+}else if(findDynamicRoutes(method,path)){
+ const match=findDynamicRoutes(method,path);
+ (res as any).params =match?.params;
+ match?.handler(req,res)
+}
+
+else{
     res.writeHead(404,{"content-type": "appliction/json"})
     res.end(JSON.stringify({
         sucess:false,
